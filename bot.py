@@ -5,7 +5,7 @@ import json
 import os
 
 # Add token to client run
-token = ""
+
 token_file = open('token_file.txt', 'r')
 token = token_file.read()
 client = discord.Client()
