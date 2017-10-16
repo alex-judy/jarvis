@@ -5,12 +5,12 @@ import json
 import os
 
 # Add token to client run
-
 token_file = open('token_file.txt', 'r')
 token = token_file.read()
 client = discord.Client()
 
-command_list = ['!test','!sleep','!hello','!flip','!addquote','!quote']
+command_list = ['!test', '!sleep', '!hello', '!flip', '!addquote', '!quote']
+
 @client.event
 async def on_ready():
     print('\n-----')
@@ -18,6 +18,8 @@ async def on_ready():
     print('\nClientID: ' + client.user.id)
     print('Token: ' + token)
     print('-----')
+    # await client.get_channel(client, "developers")
+
 
 @client.event
 async def on_message(message):
@@ -55,5 +57,9 @@ async def on_message(message):
         with open("quote_file.json", "r") as quote_file:
             quote_list = json.load(quote_file)
         await client.send_message(message.channel, random.choice(quote_list))
+
+    elif message.content.startswith("http") and message.channel.name == "general":
+        await client.delete_message(message)
+        await client.send_message(message.channel, "Message deleted. Please post links in the **media-links** channel.")
 
 client.run(token)
