@@ -58,8 +58,8 @@ async def on_message(message):
             quote_list = json.load(quote_file)
         await client.send_message(message.channel, random.choice(quote_list))
 
-    elif message.content.startswith("http") and message.channel.name == "general":
-        await client.delete_message(message)
+    elif message.content.startswith("http")and message.channel.name != "media-links":
         await client.send_message(message.channel, "Message deleted. Please post links in the **media-links** channel.")
+        await client.send_message(client.get_channel('312261809111564289'), message.content)
 
 client.run(token)
