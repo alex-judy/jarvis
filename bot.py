@@ -23,7 +23,11 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content.startswith(command_list[0]):
+    if message.content.startswith('!commands'):
+        commands = '%s' % '\n'.join(map(str, command_list))
+        await client.send_message(message.channel, commands)
+
+    elif message.content.startswith(command_list[0]):
         counter = 0
         tmp = await client.send_message(message.channel, 'Calculating messages...')
         async for log in client.logs_from(message.channel, limit=100):
@@ -58,8 +62,11 @@ async def on_message(message):
             quote_list = json.load(quote_file)
         await client.send_message(message.channel, random.choice(quote_list))
 
-    elif message.content.startswith("http")and message.channel.name != "media-links":
-        await client.send_message(message.channel, "Message deleted. Please post links in the **media-links** channel.")
+# Moves messages based on content, channel, and author.
+    elif message.content.startswith("http")and message.channel.name != "media-links"  \
+            and message.author.id != 367870679887904770:
         await client.send_message(client.get_channel('312261809111564289'), message.content)
+        await client.send_message(message.channel, "Message moved, please post links in the **media-links** channel.")
+        await client.delete_message(message)
 
 client.run(token)
