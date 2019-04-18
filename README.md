@@ -1,1 +1,1 @@
-# jarvis-bot
+A Discord bot built on the Discord Bot API (https://discordpy.readthedocs.io/en/latest/). This bot is meant to manage my personal Discord server (250+ members), but I am working to expand it's functionality for other servers. Right now it is in a fairly static state and not very configurable.
